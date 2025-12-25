@@ -18,6 +18,10 @@ echo "📦 Generating project with default values..."
 cookiecutter . --no-input --output-dir "$TEST_DIR"
 
 cd "$TEST_DIR/my_project"
+if [ ! -f "AGENTS.md" ]; then
+  echo "❌ AGENTS.md was not generated"
+  exit 1
+fi
 
 echo "🔧 Installing uv and dependencies..."
 if ! command -v uv >/dev/null 2>&1; then

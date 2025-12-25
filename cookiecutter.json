@@ -3,5 +3,6 @@
   "description": "A Python project",
   "author_email": "author@example.com",
   "python_version": "3.13",
-  "author_name": "{{cookiecutter.project_name}} Authors"
+  "author_name": "{{cookiecutter.project_name}} Authors",
+  "guidelines_file": "AGENTS.md"
 }
