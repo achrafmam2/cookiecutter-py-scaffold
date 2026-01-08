@@ -61,7 +61,7 @@ if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
-uv sync --all-extras
+uv sync --all-extras --group dev
 
 echo "🧪 Testing pytest..."
 cat > "$PACKAGE_NAME/test_basic.py" <<'PY'
