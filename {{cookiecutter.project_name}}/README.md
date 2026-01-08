@@ -20,7 +20,7 @@ Clone and setup the project:
 ```bash
 git clone <your-repo-url>
 cd {{cookiecutter.project_name}}
-uv sync --all-extras
+uv sync
 ```
 
 ## Development
@@ -28,7 +28,7 @@ uv sync --all-extras
 Install development dependencies:
 
 ```bash
-uv sync --extra dev --extra test
+uv sync --group dev
 ```
 
 Setup pre-commit hooks:
@@ -63,10 +63,4 @@ Run tests:
 
 ```bash
 uv run pytest
-```
-
-Run tests with verbose output:
-
-```bash
-uv run pytest -v
 ```
