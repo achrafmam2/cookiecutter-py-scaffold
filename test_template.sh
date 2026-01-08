@@ -56,12 +56,39 @@ if [ ! -f "$PACKAGE_NAME/__init__.py" ]; then
   exit 1
 fi
 
+echo "🧰 Creating CLI script in test project..."
+mkdir -p "$PACKAGE_NAME/cli"
+cat > "$PACKAGE_NAME/cli/__init__.py" <<'PY'
+"""CLI package."""
+PY
+cat > "$PACKAGE_NAME/cli/echo.py" <<'PY'
+def main() -> None:
+    print("Hello World")
+
+
+if __name__ == "__main__":
+    main()
+PY
+
+cat >> pyproject.toml <<EOF
+
+[project.scripts]
+echo = "$PACKAGE_NAME.cli.echo:main"
+EOF
+
 echo "🔧 Installing uv and dependencies..."
 if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 uv sync --all-extras --group dev
+
+echo "🧰 Testing CLI via uv run..."
+OUTPUT="$(uv run echo)"
+if [ "$OUTPUT" != "Hello World" ]; then
+  echo "❌ CLI output mismatch: $OUTPUT"
+  exit 1
+fi
 
 echo "🧪 Testing pytest..."
 cat > "$PACKAGE_NAME/test_basic.py" <<'PY'
